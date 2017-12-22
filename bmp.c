@@ -31,6 +31,7 @@ int main(int argc, char *argv[]) {
     file = fopen(argv[1], "r");
     if (file == NULL) {
         perror("fopen");
+        return 1;
     }
 
     struct file_header * header = malloc(sizeof(struct file_header));

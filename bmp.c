@@ -98,5 +98,10 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    free(header);
+    free(dib);
+    free(bitmap);
+    free(pad);
+
     return 0;
 }

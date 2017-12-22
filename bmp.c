@@ -85,18 +85,13 @@ int main(int argc, char *argv[]) {
     }
 
     FILE *out = fopen("test.bmp", "w");
-    dib->bits_per_pixel = 32;
     fwrite(header, sizeof(struct file_header), 1, out);
     fwrite(dib, sizeof(struct dib_header), 1, out);
-    padding = 0;
 
-    int idx;
     for (y = dib->height - 1; y >= 0; --y) {
         for (x = 0; x < dib->width; ++x) {
-            int z = dib->height - (y + 1);
-            int idx = z * dib->width + x;
-
-            fwrite(&bitmap[idx], sizeof(uint32_t), 1, out);
+            int idx = (dib->height - (y + 1)) * dib->width + x;
+            fwrite(&bitmap[idx], bytes_per_pixel, 1, out);
         }
         if (padding > 0) {
             fwrite(pad, sizeof(char), padding, out);

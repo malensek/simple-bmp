@@ -57,11 +57,10 @@ int main(int argc, char *argv[]) {
     uint32_t * bitmap = malloc(sizeof(uint32_t) * dib->width * dib->height);
 
     size_t bytes_per_pixel = dib->bits_per_pixel / 8;
-    int rowsz = (int) floor((dib->bits_per_pixel * dib->width + 31) / 32);
-    rowsz *= 4;
-    int padding = rowsz - dib->width * bytes_per_pixel;
+    int row_sz = (int) floor((dib->bits_per_pixel * dib->width + 31) / 32) * 4;
+    int padding = row_sz - dib->width * bytes_per_pixel;
     char *pad = calloc(sizeof(char), padding);
-    printf("rowsz: %d, padding: %d\n", rowsz, padding);
+    printf("rowsz: %d, padding: %d\n", row_sz, padding);
     int x, y;
     for (y = 0; y < dib->height; ++y) {
         for (x = 0; x < dib->width; ++x) {
